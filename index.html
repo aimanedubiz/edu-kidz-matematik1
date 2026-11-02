@@ -1,0 +1,1909 @@
+<!DOCTYPE html>
+<html lang="ms" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDU KIDZ — Belajar Sambil Bermain, Bijak Sepanjang Zaman!</title>
+    <meta name="description" content="Permainan pembelajaran Matematik interaktif untuk murid Pra Sekolah hingga Tahun 6. Ratusan soalan mengikut silibus KPM!">
+    <meta name="keywords" content="EDU KIDZ, Matematik Interaktif, Game Pendidikan, KPM, Sekolah Rendah, Pra Sekolah, Pembelajaran Kanak-Kanak">
+
+    <!-- Google Fonts & Font Awesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            turquoise: '#06B6D4',
+                            yellow: '#F59E0B',
+                            orange: '#F97316',
+                            purple: '#8B5CF6',
+                            pink: '#EC4899',
+                            blue: '#3B82F6',
+                            mint: '#10B981',
+                            lightBg: '#F0F9FF'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        display: ['Fredoka', 'cursive']
+                    },
+                    boxShadow: {
+                        'fun': '0 10px 25px -5px rgba(139, 92, 246, 0.15), 0 8px 10px -6px rgba(6, 182, 212, 0.1)',
+                        'gold': '0 10px 30px -5px rgba(245, 158, 11, 0.4)',
+                        'card-hover': '0 20px 30px -10px rgba(0, 0, 0, 0.08)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #F8FAFC;
+            color: #1E293B;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .font-fun {
+            font-family: 'Fredoka', cursive;
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(2deg); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        .animate-float-delayed {
+            animation: float 5s ease-in-out 2s infinite;
+        }
+
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, #06B6D4 0%, #8B5CF6 50%, #EC4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-gold {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+        }
+
+        /* Cloud Badge Styling */
+        .cloud-badge {
+            background: #FFFFFF;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            border: 2px solid #E0F2FE;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #06B6D4;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0891B2;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-turquoise selection:text-white">
+
+    <!-- ========================================== -->
+    <!-- 1. NOTIS TIP MESRA CHROME (MODAL)         -->
+    <!-- ========================================== -->
+    <div id="chromeNoticeModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm transition-opacity duration-300">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border-4 border-brand-turquoise transform transition-all scale-100 animate-float">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-cyan-100 text-brand-turquoise rounded-2xl flex items-center justify-center mx-auto mb-4 text-3xl shadow-inner">
+                    💡
+                </div>
+                <h3 class="text-2xl font-bold text-slate-800 mb-2 font-fun">TIPS UNTUK PENGALAMAN TERBAIK!</h3>
+                <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                    Untuk paparan dan pengalaman game <span class="font-bold text-brand-turquoise">EDU KIDZ</span> yang lebih lancar, kami mengesyorkan anda membuka pautan menggunakan <span class="font-bold text-slate-800">Google Chrome</span>.
+                </p>
+                <button id="closeNoticeBtn" onclick="closeChromeModal()" class="w-full py-3.5 px-6 bg-gradient-to-r from-brand-turquoise to-brand-blue hover:from-cyan-600 hover:to-blue-600 text-white font-bold rounded-2xl shadow-lg shadow-cyan-500/30 transition transform hover:-translate-y-0.5 active:translate-y-0">
+                    FAHAM, TERUSKAN ✨
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 2. STICKY HEADER & NAVBAR                  -->
+    <!-- ========================================== -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- LOGO RASMI EDU KIDZ -->
+                <a href="#utama" class="flex items-center gap-3 group">
+                    <div class="w-14 h-14 rounded-full border-2 border-cyan-400 p-0.5 shadow-md group-hover:scale-105 transition-transform duration-300 bg-white overflow-hidden shrink-0 flex items-center justify-center">
+                        <img src="https://aimanedubiz.github.io/EDU-KIDZ/logo-edu-kidz.png" alt="Logo Rasmi EDU KIDZ" class="w-full h-full object-cover rounded-full" onerror="this.onerror=null; this.src='https://placehold.co/200x200/06B6D4/FFFFFF?text=EDU+KIDZ';">
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-2xl font-extrabold font-fun tracking-wide text-slate-800 leading-none">
+                            EDU<span class="text-brand-turquoise">KIDZ</span>
+                        </span>
+                        <span class="text-[10px] font-bold tracking-wider text-brand-purple uppercase mt-1">Interactive Learning</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden lg:flex items-center gap-6 font-semibold text-slate-600 text-sm">
+                    <a href="#utama" class="hover:text-brand-turquoise transition-colors">Utama</a>
+                    <a href="#kenapa" class="hover:text-brand-turquoise transition-colors">Kenapa EDU KIDZ?</a>
+                    <a href="#demo" class="hover:text-brand-turquoise transition-colors">Video Demo</a>
+                    <a href="#laporan" class="hover:text-brand-turquoise transition-colors">Laporan & Analisis</a>
+                    <a href="#pakej" class="hover:text-brand-turquoise transition-colors">Pilihan Pakej</a>
+                    <a href="#faq" class="hover:text-brand-turquoise transition-colors">FAQ</a>
+                    <a href="#hubungan" class="hover:text-brand-turquoise transition-colors">Hubungi</a>
+                </nav>
+
+                <!-- Header Action Button -->
+                <div class="hidden sm:flex items-center gap-3">
+                    <a href="#sampel" class="px-5 py-2.5 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-500 hover:to-orange-600 text-white font-bold text-sm shadow-md shadow-orange-500/20 transition hover:-translate-y-0.5 flex items-center gap-2">
+                        <span>🎁</span> CUBA SAMPEL PERCUMA
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="lg:hidden text-slate-700 hover:text-brand-turquoise p-2">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-3">
+            <a href="#utama" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 font-semibold border-b border-slate-100">Utama</a>
+            <a href="#kenapa" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 font-semibold border-b border-slate-100">Kenapa EDU KIDZ?</a>
+            <a href="#demo" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 font-semibold border-b border-slate-100">Video Demo</a>
+            <a href="#laporan" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 font-semibold border-b border-slate-100">Laporan & Analisis</a>
+            <a href="#pakej" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 font-semibold border-b border-slate-100">Pilihan Pakej</a>
+            <a href="#faq" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 font-semibold border-b border-slate-100">FAQ</a>
+            <a href="#sampel" onclick="toggleMobileMenu()" class="block py-2 text-amber-600 font-bold">🎁 CUBA SAMPEL PERCUMA</a>
+            <a href="#hubungan" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 font-semibold">Hubungi Kami</a>
+        </div>
+    </header>
+
+    <!-- ========================================== -->
+    <!-- 3. HERO SECTION                            -->
+    <!-- ========================================== -->
+    <section id="utama" class="relative pt-8 pb-16 md:pt-16 md:pb-24 overflow-hidden bg-gradient-to-b from-cyan-50/60 via-purple-50/30 to-white">
+        <!-- Floating Decorative Vectors -->
+        <div class="absolute top-10 left-5 text-4xl animate-float opacity-70">☁️</div>
+        <div class="absolute top-20 right-10 text-4xl animate-float-delayed opacity-70">🌈</div>
+        <div class="absolute bottom-10 left-1/4 text-3xl animate-float opacity-60">⭐</div>
+        <div class="absolute top-1/2 right-5 text-3xl animate-float-delayed opacity-60">🎨</div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-4xl mx-auto">
+                
+                <!-- Tagline Badge -->
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-cyan-200 shadow-sm text-sm font-bold text-slate-700 mb-6 animate-pulse">
+                    <span>🌈</span> Belajar Sambil Bermain, Bijak Sepanjang Zaman!
+                </div>
+
+                <!-- Main Headline -->
+                <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6 font-fun">
+                    JADIKAN ANAK LEBIH BIJAK MELALUI <span class="gradient-text">PEMBELAJARAN INTERAKTIF!</span>
+                </h1>
+
+                <!-- Subheadline -->
+                <p class="text-base sm:text-lg md:text-xl text-slate-600 font-medium leading-relaxed max-w-3xl mx-auto mb-8">
+                    Ratusan hingga ribuan soalan Matematik dalam bentuk permainan interaktif. Anak belajar, bermain, mengumpul markah dan meningkatkan penguasaan setiap topik!
+                </p>
+
+                <!-- 3 Feature Badges -->
+                <div class="flex flex-wrap justify-center gap-3 sm:gap-4 mb-10">
+                    <span class="px-4 py-2 rounded-2xl bg-cyan-100 text-cyan-800 text-xs sm:text-sm font-bold flex items-center gap-2 shadow-sm border border-cyan-200">
+                        🎮 GAME INTERAKTIF
+                    </span>
+                    <span class="px-4 py-2 rounded-2xl bg-purple-100 text-purple-800 text-xs sm:text-sm font-bold flex items-center gap-2 shadow-sm border border-purple-200">
+                        📚 PRA SEKOLAH – TAHUN 6
+                    </span>
+                    <span class="px-4 py-2 rounded-2xl bg-amber-100 text-amber-800 text-xs sm:text-sm font-bold flex items-center gap-2 shadow-sm border border-amber-200">
+                        🏆 3 TAHAP KESUKARAN
+                    </span>
+                </div>
+
+                <!-- Primary CTA Buttons -->
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-16">
+                    <a href="#pakej" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-brand-turquoise via-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-extrabold text-lg shadow-xl shadow-cyan-500/25 transition transform hover:-translate-y-1 active:translate-y-0 text-center flex items-center justify-center gap-3">
+                        <i class="fa-solid fa-cart-shopping"></i> LIHAT PAKEJ SEKARANG
+                    </a>
+                    <a href="#sampel" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-white hover:bg-slate-50 text-slate-800 font-extrabold text-lg shadow-md border-2 border-slate-200 transition transform hover:-translate-y-1 active:translate-y-0 text-center flex items-center justify-center gap-3">
+                        <span>🎁</span> CUBA SAMPEL PERCUMA
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hero Visual Graphics / Illustration Mockup -->
+            <div class="relative max-w-5xl mx-auto rounded-3xl bg-gradient-to-tr from-cyan-500 via-purple-500 to-pink-500 p-3 sm:p-4 shadow-2xl">
+                <div class="bg-slate-900 rounded-2xl overflow-hidden shadow-inner p-4 sm:p-8 text-white relative">
+                    <!-- Top Browser Bar Mockup -->
+                    <div class="flex items-center gap-2 mb-6 border-b border-slate-800 pb-4">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        <div class="ml-4 px-4 py-1 rounded-full bg-slate-800 text-xs text-slate-400 font-mono w-full max-w-md truncate">
+                            https://edukidz.app/math-adventure-game
+                        </div>
+                    </div>
+                    
+                    <!-- Game Simulation Banner -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                        <div class="space-y-4 text-left">
+                            <span class="inline-block px-3 py-1 bg-amber-400 text-slate-900 font-bold rounded-full text-xs">TAHAP: SEDERHANA</span>
+                            <h3 class="text-2xl font-bold font-fun text-yellow-300">Soalan Matematik #12</h3>
+                            <p class="text-xl font-bold">Berapakah 45 + 38 = ?</p>
+                            <div class="grid grid-cols-2 gap-2 text-center text-sm font-bold">
+                                <div class="bg-cyan-600 hover:bg-cyan-500 p-3 rounded-xl cursor-pointer transition">A) 73</div>
+                                <div class="bg-emerald-500 p-3 rounded-xl cursor-pointer ring-4 ring-emerald-300 transition">B) 83 ✨</div>
+                                <div class="bg-cyan-600 hover:bg-cyan-500 p-3 rounded-xl cursor-pointer transition">C) 85</div>
+                                <div class="bg-cyan-600 hover:bg-cyan-500 p-3 rounded-xl cursor-pointer transition">D) 93</div>
+                            </div>
+                        </div>
+                        <div class="md:col-span-2 flex justify-center items-center py-6 relative">
+                            <!-- SVG Character & Trophy Graphics -->
+                            <div class="flex items-center gap-6">
+                                <div class="text-center animate-bounce">
+                                    <div class="text-6xl sm:text-8xl">🏆</div>
+                                    <span class="text-xs font-bold text-amber-300">SKOR BINTANG!</span>
+                                </div>
+                                <div class="space-y-2 text-center">
+                                    <div class="text-5xl sm:text-7xl">💻</div>
+                                    <div class="bg-purple-600/80 px-4 py-2 rounded-xl text-xs font-bold border border-purple-400">
+                                        Peranti Laptop, Tablet & Telefon
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Bar (No fake figures) -->
+            <div class="mt-12 max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
+                    <div class="text-3xl font-extrabold text-brand-turquoise font-fun">7 Peringkat</div>
+                    <div class="text-xs font-semibold text-slate-500 mt-1">Pra Sekolah hingga Tahun 6</div>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
+                    <div class="text-3xl font-extrabold text-brand-purple font-fun">Puluhan</div>
+                    <div class="text-xs font-semibold text-slate-500 mt-1">Pilihan Subtopik KPM</div>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
+                    <div class="text-3xl font-extrabold text-brand-pink font-fun">Beribu-ribu</div>
+                    <div class="text-xs font-semibold text-slate-500 mt-1">Koleksi Soalan</div>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
+                    <div class="text-3xl font-extrabold text-brand-yellow font-fun">Boleh Diulang</div>
+                    <div class="text-xs font-semibold text-slate-500 mt-1">Tanpa Had Masa</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 4. KENAPA IBU BAPA SUKA EDU KIDZ? (9 CARDS)-->
+    <!-- ========================================== -->
+    <section id="kenapa" class="py-16 md:py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brand-purple text-sm font-extrabold tracking-wider uppercase bg-purple-50 px-4 py-1.5 rounded-full border border-purple-100">
+                    KELEBIHAN UTAMA
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-4 font-fun">
+                    KENAPA IBU BAPA SUKA EDU KIDZ?
+                </h2>
+                <p class="text-slate-600 mt-3 text-base sm:text-lg">
+                    Platform terbaik yang direka khas untuk membantu pembelajaran Matematik anak dengan penuh keseronokan dan berkesan.
+                </p>
+            </div>
+
+            <!-- 9 Icon Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Card 1 -->
+                <div class="p-6 rounded-3xl bg-cyan-50/50 border border-cyan-100 hover:shadow-card-hover hover:-translate-y-1 transition duration-300">
+                    <div class="w-14 h-14 rounded-2xl bg-brand-turquoise text-white flex items-center justify-center text-2xl shadow-md mb-5">
+                        📚
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2 font-fun">SELARAS SUBTOPIK KPM</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Soalan disusun mengikut subtopik pembelajaran Matematik Kementerian Pendidikan Malaysia.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="p-6 rounded-3xl bg-amber-50/50 border border-amber-100 hover:shadow-card-hover hover:-translate-y-1 transition duration-300">
+                    <div class="w-14 h-14 rounded-2xl bg-brand-yellow text-white flex items-center justify-center text-2xl shadow-md mb-5">
+                        🎯
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2 font-fun">3 TAHAP KESUKARAN</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Anak boleh bermula daripada tahap Senang, Sederhana dan Susah mengikut tahap keupayaan.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="p-6 rounded-3xl bg-purple-50/50 border border-purple-100 hover:shadow-card-hover hover:-translate-y-1 transition duration-300">
+                    <div class="w-14 h-14 rounded-2xl bg-brand-purple text-white flex items-center justify-center text-2xl shadow-md mb-5">
+                        🧠
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2 font-fun">BERATUS-RATUS SOALAN</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Setiap topik mempunyai koleksi soalan yang banyak untuk latihan berterusan.
+                    </p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="p-6 rounded-3xl bg-pink-50/50 border border-pink-100 hover:shadow-card-hover hover:-translate-y-1 transition duration-300">
+                    <div class="w-14 h-14 rounded-2xl bg-brand-pink text-white flex items-center justify-center text-2xl shadow-md mb-5">
+                        🏆
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2 font-fun">LEADERBOARD</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Murid boleh melihat dan membandingkan skor bagi setiap topik untuk pembakar semangat.
+                    </p>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="p-6 rounded-3xl bg-emerald-50/50 border border-emerald-100 hover:shadow-card-hover hover:-translate-y-1 transition duration-300">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-500 text-white flex items-center justify-center text-2xl shadow-md mb-5">
+                        📊
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2 font-fun">KENAL PASTI KELEMAHAN</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Ibu bapa boleh memantau prestasi dan mengenal pasti topik yang memerlukan lebih latihan.
+                    </p>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="p-6 rounded-3xl bg-blue-50/50 border border-blue-100 hover:shadow-card-hover hover:-translate-y-1 transition duration-300">
+                    <div class="w-14 h-14 rounded-2xl bg-brand-blue text-white flex items-center justify-center text-2xl shadow-md mb-5">
+                        💰
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2 font-fun">HARGA BERPATUTAN</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Harga jualan sangat berbaloi dan mesra poket, bermula serendah RM2.90 sahaja.
+                    </p>
+                </div>
+
+                <!-- Card 7 -->
+                <div class="p-6 rounded-3xl bg-orange-50/50 border border-orange-100 hover:shadow-card-hover hover:-translate-y-1 transition duration-300">
+                    <div class="w-14 h-14 rounded-2xl bg-brand-orange text-white flex items-center justify-center text-2xl shadow-md mb-5">
+                        🔄
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2 font-fun">BOLEH DIULANG</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Anak boleh bermain dan membuat latihan berulang kali tanpa ada sebarang sekatan.
+                    </p>
+                </div>
+
+                <!-- Card 8 -->
+                <div class="p-6 rounded-3xl bg-indigo-50/50 border border-indigo-100 hover:shadow-card-hover hover:-translate-y-1 transition duration-300">
+                    <div class="w-14 h-14 rounded-2xl bg-indigo-600 text-white flex items-center justify-center text-2xl shadow-md mb-5">
+                        👨‍👩‍👧‍👦
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2 font-fun">PERKONGSIAN KELUARGA</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Boleh digunakan untuk sebuah keluarga kecil sehingga 3 peranti, tertakluk kepada terma penggunaan.
+                    </p>
+                </div>
+
+                <!-- Card 9 -->
+                <div class="p-6 rounded-3xl bg-teal-50/50 border border-teal-100 hover:shadow-card-hover hover:-translate-y-1 transition duration-300">
+                    <div class="w-14 h-14 rounded-2xl bg-teal-500 text-white flex items-center justify-center text-2xl shadow-md mb-5">
+                        📱
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2 font-fun">AKSES PELBAGAI PERANTI</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Boleh dilayari terus melalui telefon pintar, tablet dan komputer riba tanpa perisian rumit.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 5. SEKSYEN VIDEO DEMO                      -->
+    <!-- ========================================== -->
+    <section id="demo" class="py-16 md:py-24 bg-slate-900 text-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-cyan-400 text-sm font-extrabold tracking-wider uppercase bg-cyan-950/80 px-4 py-1.5 rounded-full border border-cyan-800">
+                    TAYANGAN LIVE DEMO
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-4 font-fun">
+                    JOM LIHAT SENDIRI BAGAIMANA EDU KIDZ BERFUNGSI!
+                </h2>
+                <p class="text-slate-300 mt-3 text-base sm:text-lg">
+                    Tonton bagaimana susunan game interaktif, soalan KPM dan kegembiraan anak-anak apabila belajar bersama EDU KIDZ.
+                </p>
+            </div>
+
+            <!-- 2 Large Video Cards Container -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- VIDEO 1 CARD: DEMO GAMEPLAY & SISTEM DSKP -->
+                <div class="bg-slate-800 rounded-3xl p-6 border border-slate-700 shadow-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-full bg-cyan-500 text-slate-900 font-extrabold flex items-center justify-center text-sm">1</span>
+                            <h3 class="text-xl font-bold text-white font-fun">Lihat Pengalaman Game EDU KIDZ</h3>
+                        </div>
+                        <p class="text-slate-400 text-sm mb-6">
+                            Ekspedisi Lautan Matematik Tahun 4 — Pilihan 8 Misi khas, penetapan tahap kesukaran, soalan DSKP KPM dan maklum balas skor secara langsung.
+                        </p>
+                    </div>
+
+                    <!-- Interactive HTML5 Video Player Container -->
+                    <div class="relative w-full aspect-[9/16] sm:aspect-video rounded-2xl overflow-hidden bg-slate-950 border border-slate-700 group flex items-center justify-center shadow-inner">
+                        <video id="demoVideo1" class="w-full h-full object-contain" poster="https://placehold.co/800x450/06B6D4/FFFFFF?text=Demo+Ekspedisi+Lautan+Matematik+Tahun+4" preload="metadata">
+                            <!-- URL Video Demo 1 (Gameplay & Antaramuka Matematik Tahun 4) -->
+                            <source src="https://aimanedubiz.github.io/EDU-KIDZ/demo-gameplay.mp4" type="video/mp4">
+                            Browser anda tidak menyokong tag video HTML5.
+                        </video>
+                        
+                        <!-- Overlay Play Button & Controls -->
+                        <div id="videoOverlay1" class="absolute inset-0 bg-slate-950/40 backdrop-blur-[2px] flex flex-col items-center justify-center cursor-pointer transition-opacity group-hover:bg-slate-950/20" onclick="playCustomVideo(1)">
+                            <div class="w-20 h-20 rounded-full bg-brand-turquoise/90 text-white flex items-center justify-center text-3xl shadow-xl transform group-hover:scale-110 transition duration-300 border-4 border-white/30">
+                                <i class="fa-solid fa-play ml-1"></i>
+                            </div>
+                            <span class="mt-4 px-4 py-1.5 rounded-full bg-slate-900/80 text-white text-xs font-bold border border-slate-700">
+                                Klik Untuk Play Demo Gameplay 🌊
+                            </span>
+                        </div>
+
+                        <!-- Video Controls Bar -->
+                        <div id="videoControls1" class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-950/90 to-transparent p-4 flex items-center justify-between text-white text-xs opacity-0 transition-opacity duration-300">
+                            <button onclick="toggleVideoState(1)" class="hover:text-cyan-400 text-base px-2">
+                                <i id="playIcon1" class="fa-solid fa-play"></i>
+                            </button>
+                            <span class="font-mono text-[11px]" id="videoTime1">00:00 / 00:50</span>
+                            <button onclick="toggleMuteState(1)" class="hover:text-cyan-400 text-base px-2">
+                                <i id="muteIcon1" class="fa-solid fa-volume-high"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex items-center justify-between text-xs text-slate-400">
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-emerald-400"></i> Silibus DSKP KPM Tahun 4</span>
+                        <span class="font-mono text-slate-500">VIDEO_URL_1</span>
+                    </div>
+                </div>
+
+                <!-- VIDEO 2 CARD: SUASANA KANAK-KANAK BERMAIN -->
+                <div class="bg-slate-800 rounded-3xl p-6 border border-slate-700 shadow-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-full bg-purple-500 text-white font-extrabold flex items-center justify-center text-sm">2</span>
+                            <h3 class="text-xl font-bold text-white font-fun">POV: Anak Belajar &amp; Bermain Bersama</h3>
+                        </div>
+                        <p class="text-slate-400 text-sm mb-6">
+                            1 Tablet, 4 Budak, 0 Gaduh 😄 — Saksikan bagaimana anak-anak seronok berinteraksi dan menyelesaikan latihan Matematik tanpa paksaan!
+                        </p>
+                    </div>
+
+                    <!-- Interactive HTML5 Video Player Container -->
+                    <div class="relative w-full aspect-[9/16] sm:aspect-video rounded-2xl overflow-hidden bg-slate-950 border border-slate-700 group flex items-center justify-center shadow-inner">
+                        <video id="demoVideo2" class="w-full h-full object-contain" poster="https://placehold.co/800x450/8B5CF6/FFFFFF?text=POV+1+Tablet+4+Budak+0+Gaduh" preload="metadata">
+                            <!-- URL Video Demo 2 (POV Pembelajaran Interaktif Kanak-Kanak) -->
+                            <source src="https://aimanedubiz.github.io/EDU-KIDZ/demo-kids-pov.mp4" type="video/mp4">
+                            Browser anda tidak menyokong tag video HTML5.
+                        </video>
+                        
+                        <!-- Overlay Play Button & Controls -->
+                        <div id="videoOverlay2" class="absolute inset-0 bg-slate-950/40 backdrop-blur-[2px] flex flex-col items-center justify-center cursor-pointer transition-opacity group-hover:bg-slate-950/20" onclick="playCustomVideo(2)">
+                            <div class="w-20 h-20 rounded-full bg-brand-purple/90 text-white flex items-center justify-center text-3xl shadow-xl transform group-hover:scale-110 transition duration-300 border-4 border-white/30">
+                                <i class="fa-solid fa-play ml-1"></i>
+                            </div>
+                            <span class="mt-4 px-4 py-1.5 rounded-full bg-slate-900/80 text-white text-xs font-bold border border-slate-700">
+                                Klik Untuk Tonton Aktiviti Anak-Anak 📱
+                            </span>
+                        </div>
+
+                        <!-- Video Controls Bar -->
+                        <div id="videoControls2" class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-950/90 to-transparent p-4 flex items-center justify-between text-white text-xs opacity-0 transition-opacity duration-300">
+                            <button onclick="toggleVideoState(2)" class="hover:text-purple-400 text-base px-2">
+                                <i id="playIcon2" class="fa-solid fa-play"></i>
+                            </button>
+                            <span class="font-mono text-[11px]" id="videoTime2">00:00 / 00:08</span>
+                            <button onclick="toggleMuteState(2)" class="hover:text-purple-400 text-base px-2">
+                                <i id="muteIcon2" class="fa-solid fa-volume-high"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex items-center justify-between text-xs text-slate-400">
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-heart text-pink-400"></i> Pengalaman Interaktif Ibu Bapa &amp; Anak</span>
+                        <span class="font-mono text-slate-500">VIDEO_URL_2</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 6. LAPORAN & ANALISIS PRESTASI (DASHBOARD) -->
+    <!-- ========================================== -->
+    <section id="laporan" class="py-16 md:py-24 bg-gradient-to-b from-white to-cyan-50/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brand-turquoise text-sm font-extrabold tracking-wider uppercase bg-cyan-100/60 px-4 py-1.5 rounded-full border border-cyan-200">
+                    SISTEM ANALISIS
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-4 font-fun">
+                    BUKAN SEKADAR BERMAIN — KENALI PRESTASI PEMBELAJARAN ANAK!
+                </h2>
+                <p class="text-slate-600 mt-3 text-base sm:text-lg">
+                    Melalui skor dan rekod latihan, ibu bapa dapat melihat perkembangan anak serta mengenal pasti topik yang perlu diberi perhatian.
+                </p>
+            </div>
+
+            <!-- Interactive Sample Dashboard Card -->
+            <div class="max-w-5xl mx-auto bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xl relative overflow-hidden">
+                
+                <!-- Notice Badge -->
+                <div class="mb-6 flex items-center justify-between flex-wrap gap-3 pb-4 border-b border-slate-100">
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-500">CONTOH PAPARAN ANALISIS</span>
+                    </div>
+                    <span class="text-xs font-semibold px-3 py-1 rounded-full bg-amber-100 text-amber-800">
+                        Demo Paparan Skor Game
+                    </span>
+                </div>
+
+                <!-- Stats Metric Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 text-center">
+                        <div class="text-xs text-slate-500 font-bold uppercase">Soalan Dijawab</div>
+                        <div class="text-2xl font-extrabold text-brand-turquoise mt-1 font-fun">240 / 300</div>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 text-center">
+                        <div class="text-xs text-slate-500 font-bold uppercase">Jawapan Betul</div>
+                        <div class="text-2xl font-extrabold text-emerald-600 mt-1 font-fun">192 Soalan</div>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 text-center">
+                        <div class="text-xs text-slate-500 font-bold uppercase">Peratus Ketepatan</div>
+                        <div class="text-2xl font-extrabold text-brand-purple mt-1 font-fun">80.0%</div>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 text-center">
+                        <div class="text-xs text-slate-500 font-bold uppercase">Jumlah Skor</div>
+                        <div class="text-2xl font-extrabold text-brand-pink mt-1 font-fun">1,920 ⭐</div>
+                    </div>
+                </div>
+
+                <!-- Breakdown Performance by Topic -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                    <!-- Topic Progress Bars -->
+                    <div class="space-y-5">
+                        <h4 class="text-lg font-bold text-slate-800 font-fun">Prestasi Mengikut Topik (Contoh Data)</h4>
+                        
+                        <!-- Topic 1 -->
+                        <div>
+                            <div class="flex justify-between text-sm font-bold mb-1">
+                                <span>Nombor dan Operasi</span>
+                                <span class="text-emerald-600">90% (Cemerlang)</span>
+                            </div>
+                            <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-emerald-500 rounded-full" style="width: 90%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Topic 2 -->
+                        <div>
+                            <div class="flex justify-between text-sm font-bold mb-1">
+                                <span>Wang</span>
+                                <span class="text-cyan-600">75% (Baik)</span>
+                            </div>
+                            <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-cyan-500 rounded-full" style="width: 75%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Topic 3 -->
+                        <div>
+                            <div class="flex justify-between text-sm font-bold mb-1">
+                                <span>Masa dan Waktu</span>
+                                <span class="text-amber-600">60% (Sederhana)</span>
+                            </div>
+                            <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-amber-500 rounded-full" style="width: 60%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Topic 4 -->
+                        <div>
+                            <div class="flex justify-between text-sm font-bold mb-1">
+                                <span>Pecahan</span>
+                                <span class="text-rose-600">45% (Perlu Latihan Bimbingan)</span>
+                            </div>
+                            <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-rose-500 rounded-full" style="width: 45%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Diagnosis & Next Action Box -->
+                    <div class="bg-cyan-50/70 p-6 rounded-2xl border border-cyan-100 space-y-4">
+                        <h4 class="text-lg font-bold text-slate-800 font-fun flex items-center gap-2">
+                            <span>🔍</span> Ringkasan Tahap Penguasaan
+                        </h4>
+                        
+                        <div class="space-y-3 text-sm">
+                            <div class="flex items-start gap-2">
+                                <span class="text-emerald-600 font-bold">💪 Topik Kuat:</span>
+                                <span class="text-slate-700">Nombor dan Operasi &amp; Wang</span>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span class="text-rose-600 font-bold">⚠️ Perlu Diperbaiki:</span>
+                                <span class="text-slate-700">Pecahan (Sila ulang latihan Tahap Senang)</span>
+                            </div>
+                            <div class="p-3 bg-white rounded-xl border border-cyan-200 text-slate-600">
+                                <span class="font-bold text-brand-purple">💡 Cadangan Latihan Seterusnya:</span><br>
+                                Fokus kepada 50 soalan Pecahan asas sebelum mencuba Tahap Sederhana.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technical Disclaimer Mandate -->
+                <div class="mt-8 pt-4 border-t border-slate-100 text-xs text-slate-400 text-center leading-relaxed">
+                    * Nota: Laporan prestasi sebenar bergantung pada rekod yang tersedia dalam game dan integrasi sistem. Sales page ini berfungsi sebagai laman maklumat jualan dan tidak mengakses rekod murid secara automatik tanpa sambungan pangkalan data.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 7. SEKSYEN PAKEJ PEMBELIAN (TABS LENGKAP)  -->
+    <!-- ========================================== -->
+    <section id="pakej" class="py-16 md:py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-brand-orange text-sm font-extrabold tracking-wider uppercase bg-orange-50 px-4 py-1.5 rounded-full border border-orange-100">
+                    KAPASITI LENGKAP KPM
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 mt-4 font-fun">
+                    PILIH PAKEJ PEMBELAJARAN ANAK ANDA!
+                </h2>
+                <p class="text-slate-600 mt-3 text-base sm:text-lg">
+                    Pelaburan kecil untuk membantu anak menguasai Matematik dengan lebih menyeronokkan.
+                </p>
+            </div>
+
+            <!-- TABS CATEGORY SELECTION -->
+            <div class="flex items-center justify-start md:justify-center gap-2 overflow-x-auto pb-4 mb-10 no-scrollbar">
+                <button onclick="switchTab('pra')" id="tab-pra" class="tab-btn px-6 py-3 rounded-2xl font-extrabold text-sm whitespace-nowrap transition duration-200 bg-brand-turquoise text-white shadow-md">
+                    Pra Sekolah
+                </button>
+                <button onclick="switchTab('thn1')" id="tab-thn1" class="tab-btn px-6 py-3 rounded-2xl font-extrabold text-sm whitespace-nowrap transition duration-200 bg-slate-100 text-slate-600 hover:bg-slate-200">
+                    Tahun 1
+                </button>
+                <button onclick="switchTab('thn2')" id="tab-thn2" class="tab-btn px-6 py-3 rounded-2xl font-extrabold text-sm whitespace-nowrap transition duration-200 bg-slate-100 text-slate-600 hover:bg-slate-200">
+                    Tahun 2
+                </button>
+                <button onclick="switchTab('thn3')" id="tab-thn3" class="tab-btn px-6 py-3 rounded-2xl font-extrabold text-sm whitespace-nowrap transition duration-200 bg-slate-100 text-slate-600 hover:bg-slate-200">
+                    Tahun 3
+                </button>
+                <button onclick="switchTab('thn4')" id="tab-thn4" class="tab-btn px-6 py-3 rounded-2xl font-extrabold text-sm whitespace-nowrap transition duration-200 bg-slate-100 text-slate-600 hover:bg-slate-200">
+                    Tahun 4
+                </button>
+                <button onclick="switchTab('thn5')" id="tab-thn5" class="tab-btn px-6 py-3 rounded-2xl font-extrabold text-sm whitespace-nowrap transition duration-200 bg-slate-100 text-slate-600 hover:bg-slate-200">
+                    Tahun 5
+                </button>
+                <button onclick="switchTab('thn6')" id="tab-thn6" class="tab-btn px-6 py-3 rounded-2xl font-extrabold text-sm whitespace-nowrap transition duration-200 bg-slate-100 text-slate-600 hover:bg-slate-200">
+                    Tahun 6
+                </button>
+            </div>
+
+            <!-- TABS CONTENT CONTAINER -->
+            <div id="tab-content-container">
+                
+                <!-- ========================================== -->
+                <!-- A. PRA SEKOLAH                             -->
+                <!-- ========================================== -->
+                <div id="content-pra" class="tab-content grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Item 1 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 hover:border-cyan-300 shadow-sm hover:shadow-card-hover transition duration-300 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Matematik</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">
+                                ☁️ <span class="text-xs font-bold text-slate-700">300 SOALAN</span>
+                            </div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">
+                                ⭐ NILAI KANDUNGAN SOALAN RM15.00
+                            </div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM5.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-MATEMATIK" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-bold text-center shadow-md transition">
+                            BELI SEKARANG
+                        </a>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 hover:border-cyan-300 shadow-sm hover:shadow-card-hover transition duration-300 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Bahasa Melayu</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">
+                                ☁️ <span class="text-xs font-bold text-slate-700">300 SOALAN</span>
+                            </div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">
+                                ⭐ NILAI KANDUNGAN SOALAN RM15.00
+                            </div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM5.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-BM" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-bold text-center shadow-md transition">
+                            BELI SEKARANG
+                        </a>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 hover:border-cyan-300 shadow-sm hover:shadow-card-hover transition duration-300 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">English</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">
+                                ☁️ <span class="text-xs font-bold text-slate-700">300 SOALAN</span>
+                            </div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">
+                                ⭐ NILAI KANDUNGAN SOALAN RM15.00
+                            </div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM5.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-ENGLISH" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-bold text-center shadow-md transition">
+                            BELI SEKARANG
+                        </a>
+                    </div>
+
+                    <!-- COMBO FULL PRA -->
+                    <div class="bg-gradient-to-b from-purple-900 to-indigo-950 text-white rounded-3xl p-6 border-4 border-amber-400 shadow-gold hover:-translate-y-1 transition duration-300 flex flex-col justify-between relative overflow-hidden sm:col-span-2 lg:col-span-1">
+                        <div class="absolute top-3 right-3 text-2xl animate-bounce">👑</div>
+                        <div>
+                            <span class="px-3 py-1 bg-amber-400 text-slate-900 text-xs font-extrabold rounded-full tracking-wider uppercase">PAKEJ LENGKAP</span>
+                            <h3 class="text-xl font-bold font-fun text-amber-300 mt-2 mb-3">COMBO FULL PRA</h3>
+                            <div class="cloud-badge bg-white/10 border-white/20 inline-flex items-center gap-2 px-4 py-1.5 mb-2 text-white">
+                                ☁️ <span class="text-xs font-bold">900 SOALAN</span>
+                            </div>
+                            <div class="text-xs font-bold text-amber-300 mb-4">
+                                ⭐ NILAI KANDUNGAN SOALAN RM45.00
+                            </div>
+                            <div class="text-4xl font-extrabold text-white font-fun mb-6">RM14.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-COMBO-FULL-PRA" target="_blank" rel="noopener" class="w-full py-4 px-4 rounded-xl gradient-gold text-slate-950 font-extrabold text-center text-lg shadow-lg hover:brightness-110 transition">
+                            🏆 BELI COMBO FULL SEKARANG
+                        </a>
+                    </div>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- B. TAHUN 1                                 -->
+                <!-- ========================================== -->
+                <div id="content-thn1" class="tab-content hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Topik 1 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 hover:border-cyan-300 shadow-sm transition flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Nombor 0 Hingga 100</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">480 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM24.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM4.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-1-TOPIK-1" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center shadow-md">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 2 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 hover:border-cyan-300 shadow-sm transition flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Tambah & Tolak</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">300 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM15.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM3.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-1-TOPIK-2" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center shadow-md">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 3 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 hover:border-cyan-300 shadow-sm transition flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Pecahan</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">240 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM12.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM2.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-1-TOPIK-3" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center shadow-md">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 4 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 hover:border-cyan-300 shadow-sm transition flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Wang</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">420 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM21.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM4.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-1-TOPIK-4" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center shadow-md">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 5 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 hover:border-cyan-300 shadow-sm transition flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Masa dan Waktu</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">300 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM15.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM3.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-1-TOPIK-5" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center shadow-md">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 6 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 hover:border-cyan-300 shadow-sm transition flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Panjang, Jisim & Isipadu Cecair</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">420 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM21.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM4.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-1-TOPIK-6" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center shadow-md">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 7 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 hover:border-cyan-300 shadow-sm transition flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Bentuk</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">360 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM18.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM3.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-1-TOPIK-7" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center shadow-md">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 8 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 hover:border-cyan-300 shadow-sm transition flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Pengurusan Data</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">240 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM12.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM2.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-1-TOPIK-8" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center shadow-md">BELI SEKARANG</a>
+                    </div>
+
+                    <!-- COMBOS FOR TAHUN 1 -->
+                    <div class="bg-slate-900 text-white rounded-3xl p-6 border-2 border-purple-500 shadow-lg flex flex-col justify-between">
+                        <div>
+                            <span class="px-3 py-1 bg-purple-500 text-white text-xs font-extrabold rounded-full">COMBO 1</span>
+                            <h3 class="text-xl font-bold font-fun text-purple-300 mt-2 mb-3">TOPIK 1–4</h3>
+                            <div class="cloud-badge bg-white/10 border-white/20 inline-flex items-center gap-2 px-4 py-1.5 mb-2 text-white">☁️ <span class="text-xs font-bold">1,440 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-300 mb-4">⭐ NILAI KANDUNGAN SOALAN RM72.00</div>
+                            <div class="text-3xl font-extrabold text-white font-fun mb-6">RM12.00</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-1-COMBO-1" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-center shadow-md">BELI COMBO 1</a>
+                    </div>
+
+                    <div class="bg-slate-900 text-white rounded-3xl p-6 border-2 border-purple-500 shadow-lg flex flex-col justify-between">
+                        <div>
+                            <span class="px-3 py-1 bg-purple-500 text-white text-xs font-extrabold rounded-full">COMBO 2</span>
+                            <h3 class="text-xl font-bold font-fun text-purple-300 mt-2 mb-3">TOPIK 4–8</h3>
+                            <div class="cloud-badge bg-white/10 border-white/20 inline-flex items-center gap-2 px-4 py-1.5 mb-2 text-white">☁️ <span class="text-xs font-bold">1,740 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-300 mb-4">⭐ NILAI KANDUNGAN SOALAN RM87.00</div>
+                            <div class="text-3xl font-extrabold text-white font-fun mb-6">RM12.00</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-1-COMBO-2" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-center shadow-md">BELI COMBO 2</a>
+                    </div>
+
+                    <div class="bg-gradient-to-b from-purple-900 to-indigo-950 text-white rounded-3xl p-6 border-4 border-amber-400 shadow-gold flex flex-col justify-between sm:col-span-2 lg:col-span-2">
+                        <div>
+                            <span class="px-3 py-1 bg-amber-400 text-slate-900 text-xs font-extrabold rounded-full">PAKEJ LENGKAP TAHUN 1</span>
+                            <h3 class="text-2xl font-bold font-fun text-amber-300 mt-2 mb-3">COMBO FULL — TOPIK 1–8</h3>
+                            <div class="cloud-badge bg-white/10 border-white/20 inline-flex items-center gap-2 px-4 py-1.5 mb-2 text-white">☁️ <span class="text-xs font-bold">2,760 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-300 mb-4">⭐ NILAI KANDUNGAN SOALAN RM138.00</div>
+                            <div class="text-4xl font-extrabold text-white font-fun mb-6">RM19.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-1-COMBO-FULL" target="_blank" rel="noopener" class="w-full py-4 px-4 rounded-xl gradient-gold text-slate-950 font-extrabold text-center text-lg shadow-lg">🏆 BELI COMBO FULL TAHUN 1</a>
+                    </div>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- C. TAHUN 2                                 -->
+                <!-- ========================================== -->
+                <div id="content-thn2" class="tab-content hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Topik 1 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Nombor Bulat Hingga 1000</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">600 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM30.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM5.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-2-TOPIK-1" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 2 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Tambah, Tolak, Darab & Bahagi</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">600 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM30.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM5.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-2-TOPIK-2" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 3 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Pecahan dan Perpuluhan</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">480 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM24.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM4.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-2-TOPIK-3" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 4 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Masa dan Waktu</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">300 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM15.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM3.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-2-TOPIK-4" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 5 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Wang</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">480 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM24.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM4.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-2-TOPIK-5" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 6 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Panjang, Jisim & Isipadu Cecair</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">660 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM33.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM5.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-2-TOPIK-6" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 7 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Bentuk</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">300 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM15.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM3.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-2-TOPIK-7" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 8 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Pengurusan Data</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">240 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM12.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM2.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-2-TOPIK-8" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+
+                    <!-- COMBOS TAHUN 2 -->
+                    <div class="bg-slate-900 text-white rounded-3xl p-6 border-2 border-purple-500 shadow-lg flex flex-col justify-between">
+                        <div>
+                            <span class="px-3 py-1 bg-purple-500 text-white text-xs font-extrabold rounded-full">COMBO 1</span>
+                            <h3 class="text-xl font-bold font-fun text-purple-300 mt-2 mb-3">TOPIK 1–4</h3>
+                            <div class="cloud-badge bg-white/10 border-white/20 inline-flex items-center gap-2 px-4 py-1.5 mb-2 text-white">☁️ <span class="text-xs font-bold">1,980 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-300 mb-4">⭐ NILAI KANDUNGAN SOALAN RM99.00</div>
+                            <div class="text-3xl font-extrabold text-white font-fun mb-6">RM12.00</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-2-COMBO-1" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-center shadow-md">BELI COMBO 1</a>
+                    </div>
+
+                    <div class="bg-slate-900 text-white rounded-3xl p-6 border-2 border-purple-500 shadow-lg flex flex-col justify-between">
+                        <div>
+                            <span class="px-3 py-1 bg-purple-500 text-white text-xs font-extrabold rounded-full">COMBO 2</span>
+                            <h3 class="text-xl font-bold font-fun text-purple-300 mt-2 mb-3">TOPIK 4–8</h3>
+                            <div class="cloud-badge bg-white/10 border-white/20 inline-flex items-center gap-2 px-4 py-1.5 mb-2 text-white">☁️ <span class="text-xs font-bold">1,980 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-300 mb-4">⭐ NILAI KANDUNGAN SOALAN RM99.00</div>
+                            <div class="text-3xl font-extrabold text-white font-fun mb-6">RM12.00</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-2-COMBO-2" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-center shadow-md">BELI COMBO 2</a>
+                    </div>
+
+                    <div class="bg-gradient-to-b from-purple-900 to-indigo-950 text-white rounded-3xl p-6 border-4 border-amber-400 shadow-gold flex flex-col justify-between sm:col-span-2 lg:col-span-2">
+                        <div>
+                            <span class="px-3 py-1 bg-amber-400 text-slate-900 text-xs font-extrabold rounded-full">PAKEJ LENGKAP TAHUN 2</span>
+                            <h3 class="text-2xl font-bold font-fun text-amber-300 mt-2 mb-3">COMBO FULL — TOPIK 1–8</h3>
+                            <div class="cloud-badge bg-white/10 border-white/20 inline-flex items-center gap-2 px-4 py-1.5 mb-2 text-white">☁️ <span class="text-xs font-bold">3,660 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-300 mb-4">⭐ NILAI KANDUNGAN SOALAN RM183.00</div>
+                            <div class="text-4xl font-extrabold text-white font-fun mb-6">RM19.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-2-COMBO-FULL" target="_blank" rel="noopener" class="w-full py-4 px-4 rounded-xl gradient-gold text-slate-950 font-extrabold text-center text-lg shadow-lg">🏆 BELI COMBO FULL TAHUN 2</a>
+                    </div>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- D. TAHUN 3                                 -->
+                <!-- ========================================== -->
+                <div id="content-thn3" class="tab-content hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Topik 1 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Nombor Bulat Hingga 10000</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">540 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM27.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM5.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-3-TOPIK-1" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 2 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Tambah, Tolak, Darab & Bahagi</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">480 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM24.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM4.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-3-TOPIK-2" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 3 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Pecahan, Perpuluhan dan Peratus</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">330 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM16.50</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM3.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-3-TOPIK-3" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 4 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Wang</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">360 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM18.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM3.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-3-TOPIK-4" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 5 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Masa dan Waktu</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">540 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM27.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM5.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-3-TOPIK-5" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 6 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Panjang, Jisim & Isipadu Cecair</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">660 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM33.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM5.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-3-TOPIK-6" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 7 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Bentuk</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">240 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM12.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM2.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-3-TOPIK-7" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 8 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Koordinat</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">180 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM9.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM2.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-3-TOPIK-8" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 9 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Pengurusan Data</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">300 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM15.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM3.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-3-TOPIK-9" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+
+                    <!-- COMBOS TAHUN 3 -->
+                    <div class="bg-slate-900 text-white rounded-3xl p-6 border-2 border-purple-500 shadow-lg flex flex-col justify-between">
+                        <div>
+                            <span class="px-3 py-1 bg-purple-500 text-white text-xs font-extrabold rounded-full">COMBO 1</span>
+                            <h3 class="text-xl font-bold font-fun text-purple-300 mt-2 mb-3">TOPIK 1–4</h3>
+                            <div class="cloud-badge bg-white/10 border-white/20 inline-flex items-center gap-2 px-4 py-1.5 mb-2 text-white">☁️ <span class="text-xs font-bold">1,710 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-300 mb-4">⭐ NILAI KANDUNGAN SOALAN RM85.50</div>
+                            <div class="text-3xl font-extrabold text-white font-fun mb-6">RM12.00</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-3-COMBO-1" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-center">BELI COMBO 1</a>
+                    </div>
+
+                    <div class="bg-slate-900 text-white rounded-3xl p-6 border-2 border-purple-500 shadow-lg flex flex-col justify-between">
+                        <div>
+                            <span class="px-3 py-1 bg-purple-500 text-white text-xs font-extrabold rounded-full">COMBO 2</span>
+                            <h3 class="text-xl font-bold font-fun text-purple-300 mt-2 mb-3">TOPIK 5–9</h3>
+                            <div class="cloud-badge bg-white/10 border-white/20 inline-flex items-center gap-2 px-4 py-1.5 mb-2 text-white">☁️ <span class="text-xs font-bold">1,920 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-300 mb-4">⭐ NILAI KANDUNGAN SOALAN RM96.00</div>
+                            <div class="text-3xl font-extrabold text-white font-fun mb-6">RM12.00</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-3-COMBO-2" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-center">BELI COMBO 2</a>
+                    </div>
+
+                    <div class="bg-gradient-to-b from-purple-900 to-indigo-950 text-white rounded-3xl p-6 border-4 border-amber-400 shadow-gold flex flex-col justify-between sm:col-span-2 lg:col-span-1">
+                        <div>
+                            <span class="px-3 py-1 bg-amber-400 text-slate-900 text-xs font-extrabold rounded-full">PAKEJ LENGKAP TAHUN 3</span>
+                            <h3 class="text-2xl font-bold font-fun text-amber-300 mt-2 mb-3">COMBO FULL — TOPIK 1–9</h3>
+                            <div class="cloud-badge bg-white/10 border-white/20 inline-flex items-center gap-2 px-4 py-1.5 mb-2 text-white">☁️ <span class="text-xs font-bold">3,630 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-300 mb-4">⭐ NILAI KANDUNGAN SOALAN RM181.50</div>
+                            <div class="text-4xl font-extrabold text-white font-fun mb-6">RM19.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-3-COMBO-FULL" target="_blank" rel="noopener" class="w-full py-4 px-4 rounded-xl gradient-gold text-slate-950 font-extrabold text-center text-lg shadow-lg">🏆 BELI COMBO FULL TAHUN 3</a>
+                    </div>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- E. TAHUN 4                                 -->
+                <!-- ========================================== -->
+                <div id="content-thn4" class="tab-content hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Topik 1 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Nombor dan Operasi</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">540 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM27.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM5.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-4-TOPIK-1" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 2 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Pecahan, Perpuluhan dan Peratus</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">600 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM30.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM5.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-4-TOPIK-2" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 3 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Wang</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">420 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM21.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM4.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-4-TOPIK-3" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 4 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Masa dan Waktu</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">540 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM27.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM5.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-4-TOPIK-4" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 5 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Panjang, Jisim & Isipadu Cecair</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">360 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM18.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM3.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-4-TOPIK-5" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 6 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Ruang</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">360 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM18.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM3.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-4-TOPIK-6" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 7 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Koordinat, Nisbah dan Kadaran</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">300 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM15.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM3.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-4-TOPIK-7" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 8 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Pengurusan Data</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">300 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM15.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM3.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-4-TOPIK-8" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+
+                    <!-- COMBOS TAHUN 4 -->
+                    <div class="bg-slate-900 text-white rounded-3xl p-6 border-2 border-purple-500 shadow-lg flex flex-col justify-between">
+                        <div>
+                            <span class="px-3 py-1 bg-purple-500 text-white text-xs font-extrabold rounded-full">COMBO 1</span>
+                            <h3 class="text-xl font-bold font-fun text-purple-300 mt-2 mb-3">TOPIK 1–4</h3>
+                            <div class="cloud-badge bg-white/10 border-white/20 inline-flex items-center gap-2 px-4 py-1.5 mb-2 text-white">☁️ <span class="text-xs font-bold">2,100 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-300 mb-4">⭐ NILAI KANDUNGAN SOALAN RM105.00</div>
+                            <div class="text-3xl font-extrabold text-white font-fun mb-6">RM12.00</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-4-COMBO-1" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-center font-mono">BELI COMBO 1</a>
+                    </div>
+
+                    <div class="bg-slate-900 text-white rounded-3xl p-6 border-2 border-purple-500 shadow-lg flex flex-col justify-between">
+                        <div>
+                            <span class="px-3 py-1 bg-purple-500 text-white text-xs font-extrabold rounded-full">COMBO 2</span>
+                            <h3 class="text-xl font-bold font-fun text-purple-300 mt-2 mb-3">TOPIK 5–8</h3>
+                            <div class="cloud-badge bg-white/10 border-white/20 inline-flex items-center gap-2 px-4 py-1.5 mb-2 text-white">☁️ <span class="text-xs font-bold">1,320 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-300 mb-4">⭐ NILAI KANDUNGAN SOALAN RM66.00</div>
+                            <div class="text-3xl font-extrabold text-white font-fun mb-6">RM12.00</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-4-COMBO-2" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-center">BELI COMBO 2</a>
+                    </div>
+
+                    <div class="bg-gradient-to-b from-purple-900 to-indigo-950 text-white rounded-3xl p-6 border-4 border-amber-400 shadow-gold flex flex-col justify-between sm:col-span-2 lg:col-span-2">
+                        <div>
+                            <span class="px-3 py-1 bg-amber-400 text-slate-900 text-xs font-extrabold rounded-full">PAKEJ LENGKAP TAHUN 4</span>
+                            <h3 class="text-2xl font-bold font-fun text-amber-300 mt-2 mb-3">COMBO FULL — TOPIK 1–8</h3>
+                            <div class="cloud-badge bg-white/10 border-white/20 inline-flex items-center gap-2 px-4 py-1.5 mb-2 text-white">☁️ <span class="text-xs font-bold">3,420 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-300 mb-4">⭐ NILAI KANDUNGAN SOALAN RM171.00</div>
+                            <div class="text-4xl font-extrabold text-white font-fun mb-6">RM19.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-4-COMBO-FULL" target="_blank" rel="noopener" class="w-full py-4 px-4 rounded-xl gradient-gold text-slate-950 font-extrabold text-center text-lg shadow-lg">🏆 BELI COMBO FULL TAHUN 4</a>
+                    </div>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- F. TAHUN 5                                 -->
+                <!-- ========================================== -->
+                <div id="content-thn5" class="tab-content hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Topik 1 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Nombor dan Operasi</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">330 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM16.50</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM3.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-5-TOPIK-1" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 2 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Pecahan, Perpuluhan dan Peratus</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">480 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM24.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM4.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-5-TOPIK-2" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 3 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Wang</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">480 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM24.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM4.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-5-TOPIK-3" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 4 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Masa dan Waktu</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">300 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM15.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM3.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-5-TOPIK-4" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 5 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Panjang, Jisim & Isipadu Cecair</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">600 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM30.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM5.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-5-TOPIK-5" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 6 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Ruang</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">360 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM18.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM3.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-5-TOPIK-6" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 7 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Koordinat, Nisbah dan Kadaran</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">240 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM12.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM2.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-5-TOPIK-7" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 8 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Pengurusan Data</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">360 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM18.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM3.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-5-TOPIK-8" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+
+                    <!-- COMBOS TAHUN 5 -->
+                    <div class="bg-slate-900 text-white rounded-3xl p-6 border-2 border-purple-500 shadow-lg flex flex-col justify-between">
+                        <div>
+                            <span class="px-3 py-1 bg-purple-500 text-white text-xs font-extrabold rounded-full">COMBO 1</span>
+                            <h3 class="text-xl font-bold font-fun text-purple-300 mt-2 mb-3">TOPIK 1–4</h3>
+                            <div class="cloud-badge bg-white/10 border-white/20 inline-flex items-center gap-2 px-4 py-1.5 mb-2 text-white">☁️ <span class="text-xs font-bold">1,590 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-300 mb-4">⭐ NILAI KANDUNGAN SOALAN RM79.50</div>
+                            <div class="text-3xl font-extrabold text-white font-fun mb-6">RM12.00</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-5-COMBO-1" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-center">BELI COMBO 1</a>
+                    </div>
+
+                    <div class="bg-slate-900 text-white rounded-3xl p-6 border-2 border-purple-500 shadow-lg flex flex-col justify-between">
+                        <div>
+                            <span class="px-3 py-1 bg-purple-500 text-white text-xs font-extrabold rounded-full">COMBO 2</span>
+                            <h3 class="text-xl font-bold font-fun text-purple-300 mt-2 mb-3">TOPIK 5–8</h3>
+                            <div class="cloud-badge bg-white/10 border-white/20 inline-flex items-center gap-2 px-4 py-1.5 mb-2 text-white">☁️ <span class="text-xs font-bold">1,560 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-300 mb-4">⭐ NILAI KANDUNGAN SOALAN RM78.00</div>
+                            <div class="text-3xl font-extrabold text-white font-fun mb-6">RM12.00</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-5-COMBO-2" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-center">BELI COMBO 2</a>
+                    </div>
+
+                    <div class="bg-gradient-to-b from-purple-900 to-indigo-950 text-white rounded-3xl p-6 border-4 border-amber-400 shadow-gold flex flex-col justify-between sm:col-span-2 lg:col-span-2">
+                        <div>
+                            <span class="px-3 py-1 bg-amber-400 text-slate-900 text-xs font-extrabold rounded-full">PAKEJ LENGKAP TAHUN 5</span>
+                            <h3 class="text-2xl font-bold font-fun text-amber-300 mt-2 mb-3">COMBO FULL — TOPIK 1–8</h3>
+                            <div class="cloud-badge bg-white/10 border-white/20 inline-flex items-center gap-2 px-4 py-1.5 mb-2 text-white">☁️ <span class="text-xs font-bold">3,150 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-300 mb-4">⭐ NILAI KANDUNGAN SOALAN RM157.50</div>
+                            <div class="text-4xl font-extrabold text-white font-fun mb-6">RM19.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-5-COMBO-FULL" target="_blank" rel="noopener" class="w-full py-4 px-4 rounded-xl gradient-gold text-slate-950 font-extrabold text-center text-lg shadow-lg">🏆 BELI COMBO FULL TAHUN 5</a>
+                    </div>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- G. TAHUN 6                                 -->
+                <!-- ========================================== -->
+                <div id="content-thn6" class="tab-content hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Topik 1 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Nombor dan Operasi</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">540 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM27.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM5.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-6-TOPIK-1" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 2 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Pecahan, Perpuluhan dan Peratus</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">420 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM21.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM4.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-6-TOPIK-2" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 3 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Wang</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">360 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM18.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM3.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-6-TOPIK-3" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 4 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Masa dan Waktu</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">120 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM6.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM2.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-6-TOPIK-4" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 5 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Ukuran dan Sukatan</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">180 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM9.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM2.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-6-TOPIK-5" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 6 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Ruang</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">240 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM12.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM2.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-6-TOPIK-6" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 7 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Koordinat, Nisbah dan Kadaran</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">240 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM12.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM2.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-6-TOPIK-7" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+                    <!-- Topik 8 -->
+                    <div class="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800 font-fun mb-3">Pengurusan Data & Kebolehjadian</h3>
+                            <div class="cloud-badge inline-flex items-center gap-2 px-4 py-1.5 mb-2">☁️ <span class="text-xs font-bold text-slate-700">180 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-500 mb-4">⭐ NILAI KANDUNGAN SOALAN RM9.00</div>
+                            <div class="text-3xl font-extrabold text-slate-900 font-fun mb-6">RM2.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-6-TOPIK-8" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-turquoise to-blue-500 text-white font-bold text-center">BELI SEKARANG</a>
+                    </div>
+
+                    <!-- COMBOS TAHUN 6 -->
+                    <div class="bg-slate-900 text-white rounded-3xl p-6 border-2 border-purple-500 shadow-lg flex flex-col justify-between">
+                        <div>
+                            <span class="px-3 py-1 bg-purple-500 text-white text-xs font-extrabold rounded-full">COMBO 1</span>
+                            <h3 class="text-xl font-bold font-fun text-purple-300 mt-2 mb-3">TOPIK 1–4</h3>
+                            <div class="cloud-badge bg-white/10 border-white/20 inline-flex items-center gap-2 px-4 py-1.5 mb-2 text-white">☁️ <span class="text-xs font-bold">1,440 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-300 mb-4">⭐ NILAI KANDUNGAN SOALAN RM72.00</div>
+                            <div class="text-3xl font-extrabold text-white font-fun mb-6">RM12.00</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-6-COMBO-1" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-center">BELI COMBO 1</a>
+                    </div>
+
+                    <div class="bg-slate-900 text-white rounded-3xl p-6 border-2 border-purple-500 shadow-lg flex flex-col justify-between">
+                        <div>
+                            <span class="px-3 py-1 bg-purple-500 text-white text-xs font-extrabold rounded-full">COMBO 2</span>
+                            <h3 class="text-xl font-bold font-fun text-purple-300 mt-2 mb-3">TOPIK 5–8</h3>
+                            <div class="cloud-badge bg-white/10 border-white/20 inline-flex items-center gap-2 px-4 py-1.5 mb-2 text-white">☁️ <span class="text-xs font-bold">840 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-300 mb-4">⭐ NILAI KANDUNGAN SOALAN RM42.00</div>
+                            <div class="text-3xl font-extrabold text-white font-fun mb-6">RM10.00</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-6-COMBO-2" target="_blank" rel="noopener" class="w-full py-3 px-4 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-center">BELI COMBO 2</a>
+                    </div>
+
+                    <div class="bg-gradient-to-b from-purple-900 to-indigo-950 text-white rounded-3xl p-6 border-4 border-amber-400 shadow-gold flex flex-col justify-between sm:col-span-2 lg:col-span-2">
+                        <div>
+                            <span class="px-3 py-1 bg-amber-400 text-slate-900 text-xs font-extrabold rounded-full">PAKEJ LENGKAP TAHUN 6</span>
+                            <h3 class="text-2xl font-bold font-fun text-amber-300 mt-2 mb-3">COMBO FULL — TOPIK 1–8</h3>
+                            <div class="cloud-badge bg-white/10 border-white/20 inline-flex items-center gap-2 px-4 py-1.5 mb-2 text-white">☁️ <span class="text-xs font-bold">2,280 SOALAN</span></div>
+                            <div class="text-xs font-bold text-amber-300 mb-4">⭐ NILAI KANDUNGAN SOALAN RM114.00</div>
+                            <div class="text-4xl font-extrabold text-white font-fun mb-6">RM19.90</div>
+                        </div>
+                        <a href="https://toyyibpay.com/EDU-KIDZ-THN-6-COMBO-FULL" target="_blank" rel="noopener" class="w-full py-4 px-4 rounded-xl gradient-gold text-slate-950 font-extrabold text-center text-lg shadow-lg">🏆 BELI COMBO FULL TAHUN 6</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 8. SEKSYEN SAMPEL PERCUMA                  -->
+    <!-- ========================================== -->
+    <section id="sampel" class="py-16 md:py-24 bg-gradient-to-r from-amber-400 via-orange-500 to-pink-500 text-white relative overflow-hidden">
+        <!-- Floating Graphics background -->
+        <div class="absolute -top-10 -left-10 text-9xl opacity-20 select-none">🎁</div>
+        <div class="absolute -bottom-10 -right-10 text-9xl opacity-20 select-none">⭐</div>
+
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div class="w-20 h-20 bg-white/20 backdrop-blur-md rounded-3xl flex items-center justify-center mx-auto mb-6 text-4xl shadow-inner border border-white/30">
+                🎁
+            </div>
+            
+            <h2 class="text-3xl sm:text-5xl font-extrabold font-fun mb-4 text-white">
+                CUBA DAHULU, BARU JATUH CINTA!
+            </h2>
+            <p class="text-lg sm:text-xl font-medium max-w-2xl mx-auto text-amber-100 mb-8 leading-relaxed">
+                Belum pasti? Jangan risau! Cuba sendiri sampel game EDU KIDZ secara PERCUMA dan rasai pengalaman pembelajaran interaktif.
+            </p>
+
+            <a href="https://drive.google.com/drive/folders/16Ml4nzN1XnV0q2cU7ZCeWa1-z19cPWdo?usp=sharing" target="_blank" rel="noopener" class="inline-flex items-center gap-3 px-8 py-5 rounded-2xl bg-white text-slate-900 font-extrabold text-xl shadow-2xl hover:bg-slate-100 hover:scale-105 transition transform active:scale-100">
+                🎮 SAYA NAK CUBA SAMPEL PERCUMA!
+            </a>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 9. FAQ ACCORDION                           -->
+    <!-- ========================================== -->
+    <section id="faq" class="py-16 md:py-24 bg-slate-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-brand-purple text-sm font-extrabold tracking-wider uppercase bg-purple-100 px-4 py-1.5 rounded-full border border-purple-200">
+                    SOALAN LAZIM
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-4 font-fun">
+                    SOALAN-SOALAN YANG SERING DITANYA
+                </h2>
+            </div>
+
+            <!-- Accordion List -->
+            <div class="space-y-4">
+                
+                <!-- Q1 -->
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                    <button onclick="toggleFaq(1)" class="w-full p-5 text-left font-bold text-slate-800 text-lg flex justify-between items-center hover:bg-slate-50 transition">
+                        <span>1. EDU KIDZ sesuai untuk umur berapa?</span>
+                        <i id="faq-icon-1" class="fa-solid fa-chevron-down text-brand-turquoise transition-transform duration-200"></i>
+                    </button>
+                    <div id="faq-ans-1" class="hidden px-5 pb-5 text-slate-600 text-sm leading-relaxed border-t border-slate-100 pt-3">
+                        EDU KIDZ menyediakan pilihan pembelajaran dari Pra Sekolah hingga Tahun 6.
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                    <button onclick="toggleFaq(2)" class="w-full p-5 text-left font-bold text-slate-800 text-lg flex justify-between items-center hover:bg-slate-50 transition">
+                        <span>2. Adakah soalan mengikut silibus KPM?</span>
+                        <i id="faq-icon-2" class="fa-solid fa-chevron-down text-brand-turquoise transition-transform duration-200"></i>
+                    </button>
+                    <div id="faq-ans-2" class="hidden px-5 pb-5 text-slate-600 text-sm leading-relaxed border-t border-slate-100 pt-3">
+                        Soalan disusun mengikut subtopik Matematik Kementerian Pendidikan Malaysia.
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                    <button onclick="toggleFaq(3)" class="w-full p-5 text-left font-bold text-slate-800 text-lg flex justify-between items-center hover:bg-slate-50 transition">
+                        <span>3. Boleh digunakan menggunakan telefon?</span>
+                        <i id="faq-icon-3" class="fa-solid fa-chevron-down text-brand-turquoise transition-transform duration-200"></i>
+                    </button>
+                    <div id="faq-ans-3" class="hidden px-5 pb-5 text-slate-600 text-sm leading-relaxed border-t border-slate-100 pt-3">
+                        Ya, boleh menggunakan telefon pintar, tablet dan komputer.
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                    <button onclick="toggleFaq(4)" class="w-full p-5 text-left font-bold text-slate-800 text-lg flex justify-between items-center hover:bg-slate-50 transition">
+                        <span>4. Berapa kali anak boleh bermain?</span>
+                        <i id="faq-icon-4" class="fa-solid fa-chevron-down text-brand-turquoise transition-transform duration-200"></i>
+                    </button>
+                    <div id="faq-ans-4" class="hidden px-5 pb-5 text-slate-600 text-sm leading-relaxed border-t border-slate-100 pt-3">
+                        Game boleh dimainkan berulang kali untuk latihan dan pengukuhan.
+                    </div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                    <button onclick="toggleFaq(5)" class="w-full p-5 text-left font-bold text-slate-800 text-lg flex justify-between items-center hover:bg-slate-50 transition">
+                        <span>5. Adakah terdapat tahap kesukaran?</span>
+                        <i id="faq-icon-5" class="fa-solid fa-chevron-down text-brand-turquoise transition-transform duration-200"></i>
+                    </button>
+                    <div id="faq-ans-5" class="hidden px-5 pb-5 text-slate-600 text-sm leading-relaxed border-t border-slate-100 pt-3">
+                        Ya, terdapat tiga tahap iaitu Senang, Sederhana dan Susah.
+                    </div>
+                </div>
+
+                <!-- Q6 -->
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                    <button onclick="toggleFaq(6)" class="w-full p-5 text-left font-bold text-slate-800 text-lg flex justify-between items-center hover:bg-slate-50 transition">
+                        <span>6. Bolehkah dikongsi dengan adik-beradik?</span>
+                        <i id="faq-icon-6" class="fa-solid fa-chevron-down text-brand-turquoise transition-transform duration-200"></i>
+                    </button>
+                    <div id="faq-ans-6" class="hidden px-5 pb-5 text-slate-600 text-sm leading-relaxed border-t border-slate-100 pt-3">
+                        Boleh dikongsi untuk sebuah keluarga kecil sehingga tiga peranti, tertakluk kepada terma penggunaan.
+                    </div>
+                </div>
+
+                <!-- Q7 -->
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                    <button onclick="toggleFaq(7)" class="w-full p-5 text-left font-bold text-slate-800 text-lg flex justify-between items-center hover:bg-slate-50 transition">
+                        <span>7. Bagaimana cara membuat pembelian?</span>
+                        <i id="faq-icon-7" class="fa-solid fa-chevron-down text-brand-turquoise transition-transform duration-200"></i>
+                    </button>
+                    <div id="faq-ans-7" class="hidden px-5 pb-5 text-slate-600 text-sm leading-relaxed border-t border-slate-100 pt-3">
+                        Pilih pakej, tekan BELI SEKARANG dan teruskan pembayaran melalui ToyyibPay.
+                    </div>
+                </div>
+
+                <!-- Q8 -->
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                    <button onclick="toggleFaq(8)" class="w-full p-5 text-left font-bold text-slate-800 text-lg flex justify-between items-center hover:bg-slate-50 transition">
+                        <span>8. Bagaimana mendapatkan bantuan?</span>
+                        <i id="faq-icon-8" class="fa-solid fa-chevron-down text-brand-turquoise transition-transform duration-200"></i>
+                    </button>
+                    <div id="faq-ans-8" class="hidden px-5 pb-5 text-slate-600 text-sm leading-relaxed border-t border-slate-100 pt-3">
+                        Hubungi pihak EDU KIDZ melalui WhatsApp atau e-mel.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 10. HUBUNGI KAMI & FOOTER                  -->
+    <!-- ========================================== -->
+    <section id="hubungan" class="py-16 bg-white border-t border-slate-100">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-extrabold text-slate-900 font-fun mb-2">
+                KAMI SEDIA MEMBANTU ANDA!
+            </h2>
+            <p class="text-slate-600 mb-8">
+                Ada sebarang soalan atau memerlukan bantuan berkenaan pakej EDU KIDZ? Hubungi pasukan sokongan kami.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+                <a href="mailto:aiman.edubiz@gmail.com" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-cyan-50 border-2 border-cyan-200 hover:bg-cyan-100 text-brand-turquoise font-extrabold text-base transition flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-envelope text-xl"></i> 📩 HANTAR E-MEL
+                </a>
+                <a href="https://wa.link/2u30o5" target="_blank" rel="noopener" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-base shadow-lg shadow-emerald-500/25 transition flex items-center justify-center gap-3">
+                    <i class="fa-brands fa-whatsapp text-2xl"></i> 📱 HUBUNGI WHATSAPP
+                </a>
+            </div>
+        </div>
+
+        <footer class="bg-slate-900 text-slate-400 pt-12 pb-8 border-t border-slate-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-slate-800">
+                    
+                    <!-- Footer Brand Logo -->
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-full border-2 border-cyan-400 p-0.5 bg-white overflow-hidden shrink-0 flex items-center justify-center">
+                            <img src="https://aimanedubiz.github.io/EDU-KIDZ/logo-edu-kidz.png" alt="Logo Rasmi EDU KIDZ" class="w-full h-full object-cover rounded-full" onerror="this.onerror=null; this.src='https://placehold.co/200x200/06B6D4/FFFFFF?text=EDU+KIDZ';">
+                        </div>
+                        <span class="text-2xl font-extrabold font-fun text-white">EDU<span class="text-brand-turquoise">KIDZ</span></span>
+                    </div>
+
+                    <!-- Footer Nav -->
+                    <div class="flex flex-wrap justify-center gap-6 text-sm font-semibold">
+                        <a href="#utama" class="hover:text-white transition">Utama</a>
+                        <a href="#pakej" class="hover:text-white transition">Pakej</a>
+                        <a href="#sampel" class="hover:text-white transition">Sampel Percuma</a>
+                        <a href="#hubungan" class="hover:text-white transition">Hubungi Kami</a>
+                    </div>
+                </div>
+
+                <div class="mt-8 text-center text-xs space-y-2">
+                    <p class="text-slate-300 font-medium">🌈 Belajar Sambil Bermain, Bijak Sepanjang Zaman!</p>
+                    <p>© 2026 EDU KIDZ. All Rights Reserved. Owned by MCP7075.</p>
+                </div>
+            </div>
+        </footer>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 11. TOAST NOTIFICATION PROMOSI             -->
+    <!-- ========================================== -->
+    <div id="toastNotification" class="fixed bottom-5 left-5 z-40 max-w-sm w-full bg-white rounded-2xl p-4 shadow-2xl border-2 border-brand-turquoise transform translate-y-32 opacity-0 transition-all duration-500 flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-cyan-100 text-brand-turquoise flex items-center justify-center text-xl shrink-0">
+            📣
+        </div>
+        <div class="flex-1">
+            <div class="text-xs font-bold text-brand-turquoise uppercase">EDU KIDZ INFO</div>
+            <p id="toastText" class="text-xs font-bold text-slate-800 leading-snug">
+                🎁 Sampel percuma EDU KIDZ boleh dicuba sekarang!
+            </p>
+        </div>
+        <button onclick="hideToast()" class="text-slate-400 hover:text-slate-600 p-1">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 12. JAVASCRIPT LOGIK & INTERACTIONS       -->
+    <!-- ========================================== -->
+    <script>
+        // --- 1. CHROME NOTICE MODAL DISMISSAL ---
+        function closeChromeModal() {
+            const modal = document.getElementById('chromeNoticeModal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+            sessionStorage.setItem('chromeNoticeClosed', 'true');
+        }
+
+        // Auto check if notice was already closed in current session
+        window.addEventListener('DOMContentLoaded', () => {
+            if (sessionStorage.getItem('chromeNoticeClosed') === 'true') {
+                const modal = document.getElementById('chromeNoticeModal');
+                if (modal) modal.style.display = 'none';
+            }
+        });
+
+        // --- 2. MOBILE MENU DRAWER ---
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // --- 3. CATEGORY TAB SWITCHER ---
+        function switchTab(tabId) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(el => el.classList.add('hidden'));
+
+            // Show selected content
+            const targetContent = document.getElementById('content-' + tabId);
+            if (targetContent) {
+                targetContent.classList.remove('hidden');
+            }
+
+            // Reset tab button styles
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
+                btn.className = "tab-btn px-6 py-3 rounded-2xl font-extrabold text-sm whitespace-nowrap transition duration-200 bg-slate-100 text-slate-600 hover:bg-slate-200";
+            });
+
+            // Active button style
+            const activeBtn = document.getElementById('tab-' + tabId);
+            if (activeBtn) {
+                activeBtn.className = "tab-btn px-6 py-3 rounded-2xl font-extrabold text-sm whitespace-nowrap transition duration-200 bg-brand-turquoise text-white shadow-md";
+            }
+        }
+
+        // --- 4. FAQ ACCORDION ---
+        function toggleFaq(id) {
+            const ans = document.getElementById('faq-ans-' + id);
+            const icon = document.getElementById('faq-icon-' + id);
+
+            if (ans.classList.contains('hidden')) {
+                ans.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                ans.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // --- 5. CUSTOM VIDEO PLAYER CONTROLS ---
+        function playCustomVideo(num) {
+            const video = document.getElementById('demoVideo' + num);
+            const overlay = document.getElementById('videoOverlay' + num);
+            const controls = document.getElementById('videoControls' + num);
+            const playIcon = document.getElementById('playIcon' + num);
+
+            if (video) {
+                video.play().then(() => {
+                    if (overlay) overlay.classList.add('opacity-0', 'pointer-events-none');
+                    if (controls) controls.classList.remove('opacity-0');
+                    if (playIcon) playIcon.className = 'fa-solid fa-pause';
+                }).catch(err => {
+                    console.log('Autoplay prevented or video path needs direct link', err);
+                });
+            }
+        }
+
+        function toggleVideoState(num) {
+            const video = document.getElementById('demoVideo' + num);
+            const playIcon = document.getElementById('playIcon' + num);
+            const overlay = document.getElementById('videoOverlay' + num);
+
+            if (!video) return;
+
+            if (video.paused) {
+                video.play();
+                if (playIcon) playIcon.className = 'fa-solid fa-pause';
+                if (overlay) overlay.classList.add('opacity-0', 'pointer-events-none');
+            } else {
+                video.pause();
+                if (playIcon) playIcon.className = 'fa-solid fa-play';
+                if (overlay) overlay.classList.remove('opacity-0', 'pointer-events-none');
+            }
+        }
+
+        function toggleMuteState(num) {
+            const video = document.getElementById('demoVideo' + num);
+            const muteIcon = document.getElementById('muteIcon' + num);
+
+            if (!video) return;
+
+            video.muted = !video.muted;
+            if (muteIcon) {
+                muteIcon.className = video.muted ? 'fa-solid fa-volume-xmark text-rose-400' : 'fa-solid fa-volume-high';
+            }
+        }
+
+        // Update Video Time Indicators
+        [1, 2].forEach(num => {
+            const video = document.getElementById('demoVideo' + num);
+            const timeSpan = document.getElementById('videoTime' + num);
+
+            if (video && timeSpan) {
+                video.addEventListener('timeupdate', () => {
+                    const curMins = Math.floor(video.currentTime / 60).toString().padStart(2, '0');
+                    const curSecs = Math.floor(video.currentTime % 60).toString().padStart(2, '0');
+                    const durMins = Math.floor((video.duration || 0) / 60).toString().padStart(2, '0');
+                    const durSecs = Math.floor((video.duration || 0) % 60).toString().padStart(2, '0');
+                    timeSpan.innerText = `${curMins}:${curSecs} / ${durMins}:${durSecs}`;
+                });
+            }
+        });
+
+        // --- 6. PERIODIC PROMOTIONAL TOAST NOTIFICATION ---
+        const toastMessages = [
+            "🎁 Sampel percuma EDU KIDZ boleh dicuba sekarang!",
+            "⭐ Pakej Matematik bermula hanya RM2.90!",
+            "📚 Pilih topik mengikut tahap pembelajaran anak.",
+            "🏆 Tingkatkan penguasaan melalui latihan interaktif!",
+            "💡 Ada pakej Combo Full untuk setiap tahun!"
+        ];
+        let toastIndex = 0;
+
+        function showNextToast() {
+            const toast = document.getElementById('toastNotification');
+            const textEl = document.getElementById('toastText');
+
+            if (!toast || !textEl) return;
+
+            textEl.innerText = toastMessages[toastIndex];
+            toastIndex = (toastIndex + 1) % toastMessages.length;
+
+            toast.classList.remove('translate-y-32', 'opacity-0');
+
+            setTimeout(() => {
+                hideToast();
+            }, 5000);
+        }
+
+        function hideToast() {
+            const toast = document.getElementById('toastNotification');
+            if (toast) {
+                toast.classList.add('translate-y-32', 'opacity-0');
+            }
+        }
+
+        // Trigger toast loop every 12 seconds
+        setInterval(showNextToast, 12000);
+        setTimeout(showNextToast, 4000);
+    </script>
+</body>
+</html>
